@@ -1,0 +1,31 @@
+<PantallaInicio>:
+    MDBoxLayout:
+        orientation: "vertical"
+        spacing: 30
+        padding: 40
+
+        MDLabel:
+            text: "Bienvenido a la App de Registro de Temperaturas"
+            halign: "center"
+            font_style: "H5"
+
+        MDRaisedButton:
+            text: "Registrar"
+            pos_hint: {"center_x": 0.5}
+            on_release: root.ir_a_registro()
+
+<PantallaRegistro>:
+    MDBoxLayout:
+        orientation: "vertical"
+        spacing: 30
+        padding: 40
+
+        MDLabel:
+            text: "Seleccione localización e introduzca su tempetarura"
+            halign: "center"
+            font_style: "H5"
+
+        MDRaisedButton:
+            text: "Volver"
+            pos_hint: {"center_x": 0.5}
+            on_release: root.volver_inicio()
