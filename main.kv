@@ -1,16 +1,14 @@
 <PantallaInicio>:
     MDBoxLayout:
         orientation: "vertical"
-        spacing: 30
-        padding: 40
-
-        MDLabel:
-            text: "Bienvenido a la App de Registro de Temperaturas"
-            halign: "center"
-            font_style: "H5"
+        spacing: dp(15)
+        padding: dp(20)
+        pos_hint: {"center_x": 0.5, "center_y":0.5}
+        size_hint_y: None
+        height: self.minimum_height
 
         MDRaisedButton:
-            text: "Registrar"
+            text: "Registrar Temperatura"
             pos_hint: {"center_x": 0.5}
             on_release: root.ir_a_registro()
 
