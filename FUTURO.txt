@@ -1,0 +1,7 @@
+Pantalla para crear la lista de cámaras
+Login para registrar usuario que toma el registro
+Pantalla para creación de nuevos usuarios con rango (fácil para poder meter a gente de prácticas). Opción de borrado para no acumurar alumnos de prácticas tontamente
+Warnings personalizados para cada cámara con dos rangos (vigilancia y acción inmediata)
+Fecha y hora actuales en la pantalla de registro con refresco cada segundo
+Pantalla para ver registros guardados (opción de borrar registro erroneo) (opción de enviar registro por correo)
+Redacción de informe semanal con gráficos y puntos críticos
