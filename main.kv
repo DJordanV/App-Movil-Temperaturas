@@ -15,15 +15,38 @@
             on_release: root.ir_a_registro()
 
 <PantallaRegistro>:
+    name: "registro"
+
     MDBoxLayout:
         orientation: "vertical"
-        spacing: 30
-        padding: 40
+        spacing: dp(15)
+        padding: dp(20)
+        pos_hint: {"center_x": 0.5, "center_y":0.5}
+        size_hint_y: None
+        height: self.minimum_height
 
         MDLabel:
             text: "Seleccione localización e introduzca su tempetarura"
             halign: "center"
             font_style: "H5"
+
+        MDTextField:
+            id: camara_field
+            hint_text: "Cámara"
+            mode: "rectangle"
+            text: ""
+            on_focus: if self.focus: app.root.get_screen('registro').abrir_menu(self)
+        
+        MDTextField:
+            id: temp_input
+            hint_text: "Temperatura (ºC)"
+            mode: "rectangle"
+            input_filter: "float"
+        
+        MDRaisedButton:
+            text: "Guardar"
+            pos_hint: {"center_x": 0.5}
+            on_release: root.guardar_datos()
 
         MDRaisedButton:
             text: "Volver"
