@@ -22,6 +22,7 @@ class PantallaRegistro(MDScreen):
 
         if camara not in ['Frigorífica 01', 'Frigorífica 02', 'Congelación', 'Fermentación 01', 'Fermentación 02']:
             self.mostrar_dialogo('⚠️ Selecciona una cámara.')
+            return
 
         try:
             temperatura = float(temperatura_str)
