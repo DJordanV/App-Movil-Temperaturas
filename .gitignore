@@ -1,1 +1,18 @@
-/vscode
+# Entornos virtuales
+venv/
+
+# Caché de python
+/__pycache__/
+*/__pycache__/
+**/__pycache__/
+*.pyc
+
+# Archivos temporales
+*.log
+*.tmp
+
+# Configuraciones locales de VSCode
+.vscode/
+
+# Archivos de registro de temperaturas
+registro_temperaturas.csv
