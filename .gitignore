@@ -1,3 +1,14 @@
-/vscode
-/venv
-*/__pycache__
+# Entornos virtuales
+venv/
+
+# Caché de python
+/__pycache__/
+*/__pycache__/
+**/__pycache__/
+
+# Archivos temporales
+*.log
+*.tmp
+
+# Configuraciones locales de VSCode
+.vscode/
