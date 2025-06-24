@@ -2,7 +2,7 @@ import csv
 import os
 from datetime import datetime
 
-RUTA_CSV = "data/registro_temperaturas.csv"
+RUTA_CSV = "data/registros/registro_temperaturas.csv"
 
 def guardar_temperatura(camara: str, temperatura: float) -> bool:
     """
