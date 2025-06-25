@@ -15,6 +15,9 @@ class PantallaCamaras(MDScreen):
     def volver_inicio(self):
         self.manager.current = 'inicio'
     
+    def ir_a_nuevo_tipo_camara(self):
+        self.manager.current = 'nuevo_tipo_camara'
+    
     def guardar_camara(self):
         nombre = self.ids.nombre_camara.text.strip()
         tipo = self.ids.tipo_camara.text.strip()
