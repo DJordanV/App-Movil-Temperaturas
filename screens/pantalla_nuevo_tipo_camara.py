@@ -6,6 +6,7 @@ from kivymd.uix.snackbar import MDSnackbar, MDSnackbarText, MDSnackbarSupporting
 from kivy.metrics import dp
 
 TXT_TIPOS_CAMARAS = Path("data/app/tipos_camaras.txt")
+os.makedirs(os.path.dirname(TXT_TIPOS_CAMARAS), exist_ok=True)
 
 class PantallaNuevoTipoCamara(MDScreen):
     def volver_camaras(self):
