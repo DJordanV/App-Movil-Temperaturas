@@ -144,6 +144,56 @@ ScreenManager:
         MDButton:
             style: "filled"
             pos_hint: {"center_x": .5, "center_y": .5}
+            on_release: root.ir_a_nuevo_tipo_camara()
+            MDButtonText:
+                text: "Nuevo Tipo de Cámara"
+
+        MDButton:
+            style: "filled"
+            pos_hint: {"center_x": .5, "center_y": .5}
             on_release: root.volver_inicio()
+            MDButtonText:
+                text: "Volver"
+
+<PantallaNuevoTipoCamara>:
+    name: "nuevo_tipo_camara"
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: "vertical"
+        spacing: dp(15)
+        padding: dp(20)
+        size_hint_y: None
+        height: self.minimum_height
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+        MDTextField:
+            id: nuevo_tipo_camara
+            mode: "outlined"
+            size_hint_x: .8
+            pos_hint: {"center_x": .5, "center_y": .5}
+            
+            MDTextFieldLeadingIcon:
+                icon: "plus-circle-outline"
+
+            MDTextFieldHintText:
+                text: "Nuevo Tipo de Cámara"
+
+        MDButton:
+            style: "filled"
+            pos_hint: {"center_x": .5, "center_y": .5}
+            on_release: root.guardar_tipo_camara()
+            MDButtonText:
+                text: "Guardar"
+
+        MDButton:
+            style: "filled"
+            pos_hint: {"center_x": .5, "center_y": .5}
+            on_release: root.volver_camaras()
             MDButtonText:
                 text: "Volver"
