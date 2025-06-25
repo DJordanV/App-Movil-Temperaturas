@@ -1,62 +1,131 @@
+import csv
+import os
+from pathlib import Path
+
 from kivymd.uix.screen import MDScreen
-from kivymd.uix.button import MDRaisedButton
-from kivymd.uix.textfield import MDTextField
 from kivymd.uix.menu import MDDropdownMenu
 from kivymd.uix.dialog import MDDialog
-from kivymd.uix.boxlayout import MDBoxLayout
+from kivymd.uix.snackbar import MDSnackbar, MDSnackbarText, MDSnackbarSupportingText
 from kivy.metrics import dp
 from kivy.clock import Clock
+
 from utils.registro_temperatura import guardar_temperatura
+from utils.control_camaras import cargar_camaras
+
+CSV_CAMARAS = Path("data/app/camaras.csv")
+
 
 class PantallaRegistro(MDScreen):
     def on_pre_enter(self):
+        self.menu_abierto = False
+        self.menu = None
         self.ids.temp_input.text = ''
-        self.ids.camara_field.text = ''
-
+        self.ids.camara_input.text = ''
+        self.cargar_camaras()
     def volver_inicio(self):
         self.manager.current = 'inicio'
 
     def guardar_datos(self):
-        camara = self.ids.camara_field.text
+        camara = self.ids.camara_input.text
         temperatura_str = self.ids.temp_input.text
 
-        if camara not in ['Frigorífica 01', 'Frigorífica 02', 'Congelación', 'Fermentación 01', 'Fermentación 02']:
-            self.mostrar_dialogo('⚠️ Selecciona una cámara.')
+        if camara not in self.nombres_camaras:
+            MDSnackbar(
+                MDSnackbarText(
+                    text="Error",
+                ),
+                MDSnackbarSupportingText(
+                    text="El nombre de la cámara no existe",
+                ),
+                y=dp(24),
+                pos_hint={"center_x": 0.5},
+                size_hint_x=0.5,
+            ).open()
             return
 
         try:
             temperatura = float(temperatura_str)
         except ValueError:
-            self.mostrar_dialogo('⚠️ Temperatura no válida.')
+            MDSnackbar(
+                MDSnackbarText(
+                    text="Error",
+                ),
+                MDSnackbarSupportingText(
+                    text="Temperatura no válida",
+                ),
+                y=dp(24),
+                pos_hint={"center_x": 0.5},
+                size_hint_x=0.5,
+            ).open()
             return
         
         exito = guardar_temperatura(camara, temperatura)
         if exito:
-            self.mostrar_dialogo('✅ Registro guardado con éxito.')
+            MDSnackbar(
+                MDSnackbarText(
+                    text="Guardado",
+                ),
+                MDSnackbarSupportingText(
+                    text=f'{temperatura}ºC   -   {camara}',
+                ),
+                y=dp(24),
+                pos_hint={"center_x": 0.5},
+                size_hint_x=0.5,
+            ).open()
             self.ids.temp_input.text = ''
-            self.ids.camara_field.text = ''
+            self.ids.camara_input.text = ''
         else:
-            self.mostrar_dialogo('❌ Error al guardar el registro.')
+            MDSnackbar(
+                MDSnackbarText(
+                    text='Error',
+                ),
+                MDSnackbarSupportingText(
+                    text='No se ha guardado el registro',
+                ),
+                y=dp(24),
+                pos_hint={"center_x": 0.5},
+                size_hint_x=0.5,
+            ).open()
     
-    def mostrar_dialogo(self, mensaje):
-        dialogo = MDDialog(text=mensaje, size_hint=(0.8, 0.3))
-        dialogo.open()
-
     def abrir_menu(self, caller):
-        items= [
-            {"viewclass": "OneLineListItem", "text": "Frigorífica 01", "on_release": lambda x="Frigorífica 01": self.seleccionar_camara(x)},
-            {"viewclass": "OneLineListItem", "text": "Frigorífica 02", "on_release": lambda x="Frigorífica 02": self.seleccionar_camara(x)},
-            {"viewclass": "OneLineListItem", "text": "Congelación", "on_release": lambda x="Congelación": self.seleccionar_camara(x)},
-            {"viewclass": "OneLineListItem", "text": "Fermentación 01", "on_release": lambda x="Fermentación 01": self.seleccionar_camara(x)},
-            {"viewclass": "OneLineListItem", "text": "Fermentación 02", "on_release": lambda x="Fermentación 02": self.seleccionar_camara(x)},
+        if not os.path.exists(CSV_CAMARAS):
+            MDSnackbar(
+                MDSnackbarText(
+                    text="Error",
+                ),
+                MDSnackbarSupportingText(
+                    text="No se encontró el listado de cámaras",
+                ),
+                y=dp(24),
+                pos_hint={"center_x": 0.5},
+                size_hint_x=0.5,
+            ).open()
+            return
+
+        items = [
+            {
+                'text': nombre,
+                'on_release': lambda x=nombre: self.seleccionar_camara(x)
+            }
+            for nombre in self.nombres_camaras
         ]
+
         self.menu = MDDropdownMenu(
-            caller = caller,
-            items = items,
-            width_mult = 4
+            caller=caller,
+            items=items,
+            border_margin=dp(24)            
         )
         self.menu.open()
     
     def seleccionar_camara(self, texto):
-        self.ids.camara_field.text = texto
+        self.ids.camara_input.text = texto
         self.menu.dismiss()
+
+    def cargar_camaras(self):
+        self.nombres_camaras = []
+
+        if os.path.exists(CSV_CAMARAS):
+            with open(CSV_CAMARAS, newline='', encoding='utf-8') as f:
+                reader = csv.reader(f)
+                next(reader)
+                self.nombres_camaras = [row[0] for row in reader]            

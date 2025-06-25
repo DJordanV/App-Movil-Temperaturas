@@ -1,8 +1,10 @@
 import csv
 import os
 from datetime import datetime
+from pathlib import Path
 
-RUTA_CSV = "data/registros/registro_temperaturas.csv"
+CSV_REGISTROS = "data/registros/registro_temperaturas.csv"
+CSV_CAMARAS = Path("data/app/camaras.csv")
 
 def guardar_temperatura(camara: str, temperatura: float) -> bool:
     """
@@ -15,7 +17,11 @@ def guardar_temperatura(camara: str, temperatura: float) -> bool:
     hora = now.strftime("%H:%M")
 
     # Validación de tipo de cámara
-    if camara not in ['Frigorífica 01', 'Frigorífica 02', 'Congelación', 'Fermentación 01', 'Fermentación 02']:
+    with open(CSV_CAMARAS, newline='', encoding='utf-8') as f:
+        reader = csv.reader(f)
+        next(reader)
+        nombres_camaras = [row[0] for row in reader]
+    if camara not in nombres_camaras:
         print("⚠️ Tipo de cámara inválido.")
         return False
     
@@ -25,10 +31,10 @@ def guardar_temperatura(camara: str, temperatura: float) -> bool:
         return False
     
     # Asegurar existencia del directorio
-    os.makedirs(os.path.dirname(RUTA_CSV), exist_ok=True)
+    os.makedirs(os.path.dirname(CSV_REGISTROS), exist_ok=True)
 
     # Guardar en CSV
-    with open(RUTA_CSV, mode='a', newline='', encoding='utf-8') as archivo:
+    with open(CSV_REGISTROS, mode='a', newline='', encoding='utf-8') as archivo:
         writer = csv.writer(archivo)
         if archivo.tell() == 0:
             writer.writerow(['Fecha', 'Hora', 'Cámara', 'Temperatura'])
