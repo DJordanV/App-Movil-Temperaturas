@@ -10,7 +10,7 @@ class PantallaCamaras(MDScreen):
     
     def guardar_camara(self):
         nombre = self.ids.nombre_camara.text.strip()
-        tipo = "Refrigeración"
+        tipo = self.ids.tipo_camara.text.strip()
 
         if not nombre:
             MDSnackbar(
@@ -19,6 +19,20 @@ class PantallaCamaras(MDScreen):
                 ),
                 MDSnackbarSupportingText(
                     text="Introduzca un nombre",
+                ),
+                y=dp(24),
+                pos_hint={"center_x": 0.5},
+                size_hint_x=0.5,
+            ).open()
+            return
+        
+        if not tipo:
+            MDSnackbar(
+                MDSnackbarText(
+                    text="Error",
+                ),
+                MDSnackbarSupportingText(
+                    text="Seleccione un tipo",
                 ),
                 y=dp(24),
                 pos_hint={"center_x": 0.5},
@@ -40,6 +54,7 @@ class PantallaCamaras(MDScreen):
                 size_hint_x=0.5,
             ).open()
             self.ids.nombre_camara.text = ''
+            self.ids.tipo_camara.text = ''
         except ValueError as e:
             MDSnackbar(
                 MDSnackbarText(

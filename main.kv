@@ -116,10 +116,22 @@ ScreenManager:
             pos_hint: {"center_x": .5, "center_y": .5}
             
             MDTextFieldLeadingIcon:
-                icon: "plus-box-multiple-outline"
+                icon: "dots-horizontal"
 
             MDTextFieldHintText:
                 text: "Nombre de la Cámara"
+
+        MDTextField:
+            id: tipo_camara
+            mode: "outlined"
+            size_hint_x: .8
+            pos_hint: {"center_x": .5, "center_y": .5}
+            
+            MDTextFieldLeadingIcon:
+                icon: "magnify"
+
+            MDTextFieldHintText:
+                text: "Tipo de Cámara"
 
         MDButton:
             style: "filled"
