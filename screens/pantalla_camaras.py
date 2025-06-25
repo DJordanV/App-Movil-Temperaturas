@@ -2,7 +2,7 @@ from kivymd.uix.screen import MDScreen
 from kivymd.uix.snackbar import MDSnackbar, MDSnackbarText, MDSnackbarSupportingText
 from kivy.metrics import dp
 
-from utils.control_camaras import guardar_camara, cargar_camaras
+from utils.control_camaras import guardar_camara
 
 class PantallaCamaras(MDScreen):
     def volver_inicio(self):

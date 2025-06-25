@@ -10,7 +10,7 @@ from kivy.metrics import dp
 from kivy.clock import Clock
 
 from utils.registro_temperatura import guardar_temperatura
-from utils.control_camaras import cargar_camaras
+from utils.control_camaras import cargar_nombres_camaras
 
 CSV_CAMARAS = Path("data/app/camaras.csv")
 
@@ -122,10 +122,4 @@ class PantallaRegistro(MDScreen):
         self.menu.dismiss()
 
     def cargar_camaras(self):
-        self.nombres_camaras = []
-
-        if os.path.exists(CSV_CAMARAS):
-            with open(CSV_CAMARAS, newline='', encoding='utf-8') as f:
-                reader = csv.reader(f)
-                next(reader)
-                self.nombres_camaras = [row[0] for row in reader]            
+        self.nombres_camaras = cargar_nombres_camaras()

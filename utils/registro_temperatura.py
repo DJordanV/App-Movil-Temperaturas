@@ -3,8 +3,9 @@ import os
 from datetime import datetime
 from pathlib import Path
 
+from utils.control_camaras import cargar_camaras_dict_tipo
+
 CSV_REGISTROS = "data/registros/registro_temperaturas.csv"
-CSV_CAMARAS = Path("data/app/camaras.csv")
 
 def guardar_temperatura(camara: str, temperatura: float) -> bool:
     """
@@ -16,10 +17,8 @@ def guardar_temperatura(camara: str, temperatura: float) -> bool:
     fecha = now.strftime("%Y-%m-%d")
     hora = now.strftime("%H:%M")
 
-    with open(CSV_CAMARAS, newline='', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        camaras_dict = {row['Nombre']: row['Tipo'] for row in reader}
-        nombres_camaras = list(camaras_dict.keys())
+    camaras_dict = cargar_camaras_dict_tipo()
+    nombres_camaras = list(camaras_dict.keys())
         
 
     # Validación de tipo de cámara
