@@ -12,7 +12,7 @@ ScreenManager:
             pos: self.pos
             size: self.size
 
-    BoxLayout:
+    MDBoxLayout:
         orientation: "vertical"
         spacing: dp(15)
         padding: dp(20)
@@ -43,7 +43,7 @@ ScreenManager:
             pos: self.pos
             size: self.size
 
-    BoxLayout:
+    MDBoxLayout:
         orientation: "vertical"
         spacing: dp(15)
         padding: dp(20)
@@ -101,7 +101,7 @@ ScreenManager:
             pos: self.pos
             size: self.size
 
-    BoxLayout:
+    MDBoxLayout:
         orientation: "vertical"
         spacing: dp(15)
         padding: dp(20)
@@ -120,19 +120,32 @@ ScreenManager:
 
             MDTextFieldHintText:
                 text: "Nombre de la Cámara"
+        
+        MDBoxLayout:
+            orientation: "horizontal"
+            spacing: dp(15)
+            size_hint_y: None
+            height: self.minimum_height
+            size_hint_x: 0.8
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
 
-        MDTextField:
-            id: tipo_camara
-            mode: "outlined"
-            size_hint_x: .8
-            pos_hint: {"center_x": .5, "center_y": .5}
-            on_focus: if self.focus: app.root.get_screen('camaras').abrir_menu(self)
-            
-            MDTextFieldLeadingIcon:
-                icon: "magnify"
+            MDTextField:
+                id: tipo_camara
+                mode: "outlined"
+                pos_hint: {"center_x": .5, "center_y": .5}
+                on_focus: if self.focus: app.root.get_screen('camaras').abrir_menu(self)
+                
+                MDTextFieldLeadingIcon:
+                    icon: "magnify"
 
-            MDTextFieldHintText:
-                text: "Tipo de Cámara"
+                MDTextFieldHintText:
+                    text: "Tipo de Cámara"
+
+            MDFabButton:
+                icon: "plus-circle-outline"
+                style: "standard"
+                pos_hint: {"center_x": .5, "center_y": .5}
+                on_release: root.ir_a_nuevo_tipo_camara()
 
         MDButton:
             style: "filled"
@@ -140,13 +153,6 @@ ScreenManager:
             on_release: root.guardar_camara()
             MDButtonText:
                 text: "Guardar Cámara"
-
-        MDButton:
-            style: "filled"
-            pos_hint: {"center_x": .5, "center_y": .5}
-            on_release: root.ir_a_nuevo_tipo_camara()
-            MDButtonText:
-                text: "Nuevo Tipo de Cámara"
 
         MDButton:
             style: "filled"
@@ -164,7 +170,7 @@ ScreenManager:
             pos: self.pos
             size: self.size
 
-    BoxLayout:
+    MDBoxLayout:
         orientation: "vertical"
         spacing: dp(15)
         padding: dp(20)
