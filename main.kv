@@ -27,13 +27,6 @@ ScreenManager:
             MDButtonText:
                 text: "Registrar Temperatura"
 
-        MDButton:
-            style: "filled"
-            pos_hint: {"center_x": .5, "center_y": .5}
-            on_release: root.ir_a_camaras()
-            MDButtonText:
-                text: "Nueva Cámara"
-
 <PantallaRegistro>:
     name: "registro"
     canvas.before:
@@ -51,25 +44,37 @@ ScreenManager:
         height: self.minimum_height
         pos_hint: {"center_x": 0.5, "center_y": 0.5}
 
-        MDTextField:
-            id: camara_input
-            mode: "outlined"
-            size_hint_x: None
-            width: "240dp"
-            pos_hint: {"center_x": .5, "center_y": .5}
-            on_focus: if self.focus: app.root.get_screen('registro').abrir_menu(self)
+        MDBoxLayout:
+            orientation: "horizontal"
+            spacing: dp(15)
+            size_hint_y: None
+            height: self.minimum_height
+            size_hint_x: 0.8
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            
+            MDTextField:
+                id: camara_input
+                mode: "outlined"
+                size_hint_x: 0.8
+                pos_hint: {"center_x": .5, "center_y": .5}
+                on_focus: if self.focus: app.root.get_screen('registro').abrir_menu(self)
 
-            MDTextFieldLeadingIcon:
-                icon: "magnify"
+                MDTextFieldLeadingIcon:
+                    icon: "arrow-down-drop-circle-outline"
 
-            MDTextFieldHintText:
-                text: "Cámara"
+                MDTextFieldHintText:
+                    text: "Cámara"
+
+            MDFabButton:
+                icon: "plus-circle-outline"
+                style: "standard"
+                pos_hint: {"center_x": .5, "center_y": .5}
+                on_release: root.ir_a_camaras()
 
         MDTextField:
             id: temp_input
             mode: "outlined"
-            size_hint_x: None
-            width: "240dp"
+            size_hint_x: 0.8
             pos_hint: {"center_x": .5, "center_y": .5}
             
             MDTextFieldLeadingIcon:
@@ -136,7 +141,7 @@ ScreenManager:
                 on_focus: if self.focus: app.root.get_screen('camaras').abrir_menu(self)
                 
                 MDTextFieldLeadingIcon:
-                    icon: "magnify"
+                    icon: "arrow-down-drop-circle-outline"
 
                 MDTextFieldHintText:
                     text: "Tipo de Cámara"
@@ -185,7 +190,7 @@ ScreenManager:
             pos_hint: {"center_x": .5, "center_y": .5}
             
             MDTextFieldLeadingIcon:
-                icon: "plus-circle-outline"
+                icon: "dots-horizontal"
 
             MDTextFieldHintText:
                 text: "Nuevo Tipo de Cámara"

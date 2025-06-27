@@ -22,8 +22,12 @@ class PantallaRegistro(MDScreen):
         self.ids.temp_input.text = ''
         self.ids.camara_input.text = ''
         self.cargar_camaras()
+
     def volver_inicio(self):
         self.manager.current = 'inicio'
+
+    def ir_a_camaras(self):
+        self.manager.current = 'camaras'
 
     def guardar_datos(self):
         camara = self.ids.camara_input.text
